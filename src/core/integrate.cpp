@@ -720,7 +720,7 @@ void rescale_forces_propagate_vel() {
       if (thermo_switch & THERMO_LANGEVIN)
       {
 #ifdef LANGEVIN_PER_PARTICLE
-          step4_factor = 1 / (1 - p->p.vv_langevin_pref1 * scale / (p[i]).p.mass);
+          step4_factor = 1 / (1 - (p[i]).p.vv_langevin_pref1 * scale / (p[i]).p.mass);
 #else
           step4_factor = 1 / (1 - vv_langevin_pref1 * scale / (p[i]).p.mass);
 #endif // LANGEVIN_PER_PARTICLE

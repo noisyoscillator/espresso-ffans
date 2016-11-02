@@ -362,9 +362,9 @@ void convert_torques_propagate_omega()
 #ifdef ROTATIONAL_INERTIA
 
 #ifdef LANGEVIN_PER_PARTICLE
-          for (j = 0; j < 3; j++) pref1_temp[j] = p[i].p.vv_langevin_pref1_rot[j] * time_step_half / p[i].p.rinertia[j];
+          for (j = 0; j < 3; j++) pref1_temp[j] = p[i].p.vv_langevin_pref1_rot[j];
 #else
-          for (j = 0; j < 3; j++) pref1_temp[j] = p.vv_langevin_pref1_rot[j] * time_step_half / p[i].p.rinertia[j];
+          for (j = 0; j < 3; j++) pref1_temp[j] = vv_langevin_pref1_rot[j];
 #endif // LANGEVIN_PER_PARTICLE
 
           //for (j = 0; j < 3; j++) p[i].m.omega[j] += (p[i].f.torque[j] * time_step_half / p[i].p.rinertia[j]) / (1 - pref1_temp[j]);
@@ -372,9 +372,9 @@ void convert_torques_propagate_omega()
 #else
 
 #ifdef LANGEVIN_PER_PARTICLE
-          for (j = 0; j < 3; j++) pref1_temp[j] = p[i].p.vv_langevin_pref1_rot * time_step_half;
+          for (j = 0; j < 3; j++) pref1_temp[j] = p[i].p.vv_langevin_pref1_rot;
 #else
-          for (j = 0; j < 3; j++) pref1_temp[j] = p.vv_langevin_pref1_rot * time_step_half;
+          for (j = 0; j < 3; j++) pref1_temp[j] = vv_langevin_pref1_rot;
 
 #endif // LANGEVIN_PER_PARTICLE
 
@@ -407,9 +407,9 @@ void convert_torques_propagate_omega()
         Wd[1] = (p[i].m.omega[2]*p[i].m.omega[0]*(p[i].p.rinertia[2]-p[i].p.rinertia[0]) + pref1_temp[1] * p[i].m.omega[1])/p[i].p.rinertia[1];
         Wd[2] = (p[i].m.omega[0]*p[i].m.omega[1]*(p[i].p.rinertia[0]-p[i].p.rinertia[1]) + pref1_temp[2] * p[i].m.omega[2])/p[i].p.rinertia[2];
 #else
-        Wd[0] = (p[i].m.omega[1]*p[i].m.omega[2]*(I[1]-I[2]))/I[0];
-        Wd[1] = (p[i].m.omega[2]*p[i].m.omega[0]*(I[2]-I[0]))/I[1]; 
-        Wd[2] = (p[i].m.omega[0]*p[i].m.omega[1]*(I[0]-I[1]))/I[2];
+        Wd[0] = (p[i].m.omega[1]*p[i].m.omega[2]*(I[1]-I[2]) + pref1_temp[0] * p[i].m.omega[0])/I[0];
+        Wd[1] = (p[i].m.omega[2]*p[i].m.omega[0]*(I[2]-I[0]) + pref1_temp[1] * p[i].m.omega[1])/I[1];
+        Wd[2] = (p[i].m.omega[0]*p[i].m.omega[1]*(I[0]-I[1]) + pref1_temp[2] * p[i].m.omega[2])/I[2];
 #endif
 
         p[i].m.omega[0] = omega_0[0] + time_step_half*Wd[0];
