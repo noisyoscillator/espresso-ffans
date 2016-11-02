@@ -84,7 +84,7 @@ proc test_mass-and-rinertia_per_particle {test_case} {
     for {set i 0} {$i <100} {incr i} {
         for {set k 0} {$k <3} {incr k} {
             if {[has_feature "VERLET_STEP4_VELOCITY"]} {
-                set tolerance_o 1.25E-4
+                set tolerance_o 6.5E-5
             } else {
                 set tolerance_o 1.0E-2
             }
