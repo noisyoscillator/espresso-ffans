@@ -239,7 +239,7 @@ proc test_mass-and-rinertia_per_particle {test_case} {
 
         puts "Deviation in translational energy: $dv($k)"
         puts "Deviation in rotational energy: $do($k)"
-        puts "Deviation in translational dispersion: $dr($k)"
+        puts "Deviation in translational diffusion: $dr($k)"
 
         if { abs($dv($k)) > $tolerance } {
            error "Relative deviation in translational energy too large: $dv($k)"
