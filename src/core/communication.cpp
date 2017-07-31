@@ -2041,10 +2041,6 @@ void mpi_bcast_coulomb_params_slave(int node, int parm) {
     break;
   case DIPOLAR_DS_GPU:
     break;
-#ifdef BARNES_HUT
-  case DIPOLAR_BH_GPU:
-    break;
-#endif
   case DIPOLAR_SCAFACOS:
     break;
   default:

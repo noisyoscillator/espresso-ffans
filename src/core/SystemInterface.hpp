@@ -113,17 +113,6 @@ public:
   virtual bool hasR() { return false; };
   virtual bool requestR() { m_needsR = hasR(); return m_needsR; }
 
-#ifdef BARNES_HUT
-  virtual float *massGpuBegin(void) { return 0; };
-  virtual float *rxGpuBegin(void) { return 0; };
-  virtual float *ryGpuBegin(void) { return 0; };
-  virtual float *rzGpuBegin(void) { return 0; };
-  virtual float *dipxGpuBegin(void) { return 0; };
-  virtual float *dipyGpuBegin(void) { return 0; };
-  virtual float *dipzGpuBegin(void) { return 0; };
-  virtual int blocksGpu(void) {return 0; }
-#endif
-
   virtual float *rGpuBegin() { return 0; };
   virtual float *rGpuEnd() { return 0; };
   virtual bool hasRGpu() { return false; };
