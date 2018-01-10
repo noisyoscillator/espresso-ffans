@@ -27,7 +27,6 @@
 #include "EspressoSystemInterface.hpp"
 
 #include "comfixed_global.hpp"
-#include "domain_decomposition.hpp"
 #include "electrokinetics.hpp"
 #include "external_potential.hpp"
 #include "forces.hpp"
@@ -108,7 +107,7 @@ void force_calc() {
   // to reassemble the cell lists after all position updates, also of virtual
   // particles.
   if ((lattice_switch & LATTICE_LB) &&
-      cell_structure.type == CELL_STRUCTURE_DOMDEC && (!dd.use_vList))
+      cell_structure.type == CELL_STRUCTURE_DOMDEC && (!cell_structure.use_verlet_list))
     cells_update_ghosts();
 #endif
 
@@ -342,7 +341,7 @@ void calc_non_bonded_pair_force_from_partcfg_simple(Particle const *p1,
                                                     double dist2,
                                                     double force[3]) {
   IA_parameters *ia_params = get_ia_param(p1->p.type, p2->p.type);
-  double torque1[3], torque2[3];
+  double torque1[3] = {0,0,0}, torque2[3] = {0,0,0};
   calc_non_bonded_pair_force_from_partcfg(p1, p2, ia_params, d, dist, dist2,
                                           force, torque1, torque2);
 }
