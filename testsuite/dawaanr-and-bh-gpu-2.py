@@ -21,7 +21,7 @@ class BHGPUTest(ut.TestCase):
     system = espressomd.System(box_l=[1,1,1])
     
     def vectorsTheSame(self,a,b):
-        tol = 5E-2
+        tol = 25E-2
         vec_len = la.norm(a - b)
         rel = 2 * vec_len / (la.norm(a) + la.norm(b))
         if rel <= tol:
